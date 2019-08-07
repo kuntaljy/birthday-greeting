@@ -55,19 +55,19 @@ public class CsvEmployeeBuilder implements EmployeeBuilder {
         return employee;
     }
 
-    private static void setValue(Employee employee, String header, String value) {
+    private void setValue(Employee employee, String header, String value) {
         Arrays.stream(employee.getClass().getDeclaredFields())
                 .filter(field -> columnMatch(field, header))
                 .findFirst()
                 .ifPresent(field -> setValueInternal(employee, field, value));
     }
 
-    private static boolean columnMatch(Field field, String header) {
+    private boolean columnMatch(Field field, String header) {
         Column column = field.getAnnotation(Column.class);
         return Objects.nonNull(column) && column.value().equals(header);
     }
 
-    private static void setValueInternal(Employee employee, Field field, String value) {
+    private void setValueInternal(Employee employee, Field field, String value) {
         try {
             PropertyDescriptor pd = new PropertyDescriptor(field.getName(), Employee.class);
             Column column = field.getAnnotation(Column.class);
@@ -81,7 +81,7 @@ public class CsvEmployeeBuilder implements EmployeeBuilder {
     }
 
     @SuppressWarnings("unchecked")
-    private static <T> T parse(String value, String format, Class<T> target) {
+    private <T> T parse(String value, String format, Class<T> target) {
         if (target.isAssignableFrom(String.class)) {
             return (T) value;
         } else if (target.isAssignableFrom(LocalDate.class)) {
@@ -92,7 +92,7 @@ public class CsvEmployeeBuilder implements EmployeeBuilder {
         }
     }
 
-    private static String[] csvDataSplit(String line) {
+    private String[] csvDataSplit(String line) {
         return line.split(CSV_SPLITER);
     }
 }

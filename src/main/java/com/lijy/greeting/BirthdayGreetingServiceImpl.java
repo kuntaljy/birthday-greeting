@@ -1,6 +1,6 @@
 package com.lijy.greeting;
 
-import com.lijy.email.EmailUtil;
+import com.lijy.email.EmailService;
 import com.lijy.employee.CsvEmployeeBuilder;
 import com.lijy.employee.Employee;
 
@@ -22,15 +22,15 @@ public class BirthdayGreetingServiceImpl implements BirthdayGreetingService {
         URI fileUri = this.getClass().getResource(filePath).toURI();
 
         try (BufferedReader bufferedReader = Files.newBufferedReader(Paths.get(fileUri))) {
-
             CsvEmployeeBuilder employeeBuilder = new CsvEmployeeBuilder();
             employeeBuilder.headerLine(bufferedReader.readLine());
+            EmailService emailService = new EmailService();
 
             bufferedReader.lines()
                     .map(csvline -> employeeBuilder.dataLine(csvline).build())
                     .filter(Employee::isMyBirthDayToday)
                     .map(BirthdayGreetingMessage::new)
-                    .forEach(EmailUtil::send);
+                    .forEach(emailService::send);
         }
     }
 }
