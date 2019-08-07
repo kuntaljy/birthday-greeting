@@ -21,7 +21,7 @@ public class BirthdayGreetingServiceImpl implements BirthdayGreetingService {
         String filePath = "/employee_record.txt";
         URI fileUri = this.getClass().getResource(filePath).toURI();
 
-        try(BufferedReader bufferedReader = Files.newBufferedReader(Paths.get(fileUri))) {
+        try (BufferedReader bufferedReader = Files.newBufferedReader(Paths.get(fileUri))) {
 
             CsvEmployeeBuilder employeeBuilder = new CsvEmployeeBuilder();
             employeeBuilder.headerLine(bufferedReader.readLine());

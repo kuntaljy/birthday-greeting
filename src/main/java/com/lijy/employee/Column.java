@@ -10,5 +10,6 @@ import java.lang.annotation.*;
 @Target(ElementType.FIELD)
 public @interface Column {
     String value();
+
     String format() default "";
 }

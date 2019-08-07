@@ -8,7 +8,9 @@ import com.lijy.employee.Employee;
  */
 public class BirthdayGreetingMessage implements EmailMessage {
 
+    // todo 可以从配置文件获取
     private static final String DEFAULT_SUBJECT = "Happy birthday!";
+    // todo 可以动配置文件读取，并使用占位符替换Employee中对应的字段
     private static final String DEFAULT_CONTENT_FORMAT = "Happy birthday, dear %s";
 
     private String email;

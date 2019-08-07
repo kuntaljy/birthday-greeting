@@ -5,6 +5,8 @@ package com.lijy.email;
  */
 public interface EmailMessage {
     String getEmail();
+
     String getSubject();
+
     String getContent();
 }
