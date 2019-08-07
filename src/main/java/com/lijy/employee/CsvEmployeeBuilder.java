@@ -49,9 +49,6 @@ public class CsvEmployeeBuilder implements EmployeeBuilder {
             String value = data[i];
             setValue(employee, header, value);
         }
-
-        headers = null;
-        data = null;
         return employee;
     }
 
